@@ -95,5 +95,24 @@ namespace Bloggie.Web.Controllers
             return RedirectToAction("Edit", new { id=editTagRequest?.Id });
 
         }
+
+        [HttpPost]
+        public IActionResult Delete(EditTagRequest editTagRequest)
+        {
+           var tag= bloggieDbContext.Tags.Find(editTagRequest.Id);
+            if (tag != null)
+            {
+                bloggieDbContext.Tags.Remove(tag);
+                bloggieDbContext.SaveChanges();
+
+                // Show success notifications ( will work on later )
+
+                return RedirectToAction("List");
+            }
+
+            // show an error notification ( will work on later )
+
+            return RedirectToAction("Edit", new {id = editTagRequest?.Id});
+        }
     }
 }
