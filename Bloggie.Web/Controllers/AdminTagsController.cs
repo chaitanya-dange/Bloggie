@@ -35,7 +35,14 @@ namespace Bloggie.Web.Controllers
             bloggieDbContext.Tags.Add(tag);
             bloggieDbContext.SaveChanges();
 
-            return View("Add");
+            return RedirectToAction("List");
+        }
+
+        [HttpGet]
+        public IActionResult List() {
+            // use dbContext to read the tags
+            var tags=bloggieDbContext.Tags.ToList();
+            return View(tags);
         }
     }
 }
